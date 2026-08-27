@@ -267,6 +267,9 @@ pub fn build(b: *std.Build) void {
 
     switch (options.backend) {
         .glfw_wgpu => {
+            const wgpu_native = b.dependency("wgpu_native_zig", .{});
+            imgui_mod.addIncludePath(wgpu_native.path("zig-pkg/N-V-__8AAHS_-BNtAmT4hK9geZG361RETmD2lG0fk2gyDYh-/include"));
+
             if (b.lazyDependency("zglfw", .{})) |zglfw| {
                 imgui_mod.addIncludePath(zglfw.path("libs/glfw/include"));
             }
@@ -280,7 +283,7 @@ pub fn build(b: *std.Build) void {
                     "libs/imgui/backends/imgui_impl_glfw.cpp",
                     "libs/imgui/backends/imgui_impl_wgpu.cpp",
                 },
-                .flags = cflags,
+                .flags = &(cflags.* ++ .{"-DIMGUI_IMPL_WEBGPU_BACKEND_WGPU"}),
             });
         },
         .glfw_opengl3 => {
