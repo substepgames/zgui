@@ -328,7 +328,7 @@ pub fn build(b: *std.Build) void {
             if (b.lazyDependency("zglfw", .{})) |zglfw| {
                 imgui_mod.addIncludePath(zglfw.path("libs/glfw/include"));
             }
-            const sdk_env: ?[]const u8 = b.graph.environ_map.get("VULKAN_SDK");
+            const sdk_env = b.graph.environ_map.get("VULKAN_SDK");
 
             if (options.vulkan_include) |path| {
                 imgui_mod.addSystemIncludePath(.{ .cwd_relative = path });
@@ -453,7 +453,7 @@ pub fn build(b: *std.Build) void {
             if (b.lazyDependency("zsdl", .{})) |zsdl| {
                 imgui_mod.addIncludePath(zsdl.path("libs/sdl3/include"));
             }
-            const sdk_env: ?[]const u8 = b.graph.environ_map.get("VULKAN_SDK");
+            const sdk_env = b.graph.environ_map.get("VULKAN_SDK");
 
             if (options.vulkan_include) |path| {
                 imgui_mod.addSystemIncludePath(.{ .cwd_relative = path });
