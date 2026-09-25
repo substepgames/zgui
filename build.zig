@@ -3,6 +3,7 @@ const std = @import("std");
 pub const Backend = enum {
     no_backend,
     glfw_wgpu,
+    glfw_dawn,
     glfw_opengl3,
     glfw_vulkan,
     glfw_dx12,
@@ -266,9 +267,9 @@ pub fn build(b: *std.Build) void {
     }
 
     switch (options.backend) {
-        .glfw_wgpu => {
+        .glfw_wgpu, .glfw_dawn => {
             const wgpu_native = b.dependency("wgpu_native_zig", .{});
-            imgui_mod.addIncludePath(wgpu_native.path("zig-pkg/N-V-__8AAHS_-BNtAmT4hK9geZG361RETmD2lG0fk2gyDYh-/include"));
+            imgui_mod.addIncludePath(wgpu_native.path("zig-pkg/N-V-__8AALK1sQPqMGESXUOHBpzwDj1GMf_nYBdfbjewJ9kH/include"));
 
             if (b.lazyDependency("zglfw", .{})) |zglfw| {
                 imgui_mod.addIncludePath(zglfw.path("libs/glfw/include"));
@@ -278,12 +279,13 @@ pub fn build(b: *std.Build) void {
                     imgui_mod.addIncludePath(zgpu.path("libs/dawn/include"));
                 }
             }
+            const backend_flag = if (options.backend == .glfw_wgpu) "-DIMGUI_IMPL_WEBGPU_BACKEND_WGPU" else "-DIMGUI_IMPL_WEBGPU_BACKEND_DAWN";
             imgui_mod.addCSourceFiles(.{
                 .files = &.{
                     "libs/imgui/backends/imgui_impl_glfw.cpp",
                     "libs/imgui/backends/imgui_impl_wgpu.cpp",
                 },
-                .flags = &(cflags.* ++ .{"-DIMGUI_IMPL_WEBGPU_BACKEND_WGPU"}),
+                .flags = &(cflags.* ++ .{backend_flag}),
             });
         },
         .glfw_opengl3 => {

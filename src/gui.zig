@@ -11,7 +11,7 @@ pub const te = @import("te.zig");
 pub const knobs = @import("knobs.zig");
 
 pub const backend = switch (@import("zgui_options").backend) {
-    .glfw_wgpu => @import("backend_glfw_wgpu.zig"),
+    .glfw_wgpu, .glfw_dawn => @import("backend_glfw_wgpu.zig"),
     .glfw_opengl3 => @import("backend_glfw_opengl.zig"),
     .glfw_dx12 => @import("backend_glfw_dx12.zig"),
     .glfw_vulkan => @import("backend_glfw_vulkan.zig"),

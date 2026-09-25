@@ -10,3 +10,4 @@ zig-pkg
 # Ignore some IDE folders
 *.vscode
 *.idea
+.ccls-cache
