@@ -51,19 +51,6 @@
 
 #include "imgui.h"
 
-// When targeting native platforms (i.e. NOT emscripten), one of IMGUI_IMPL_WEBGPU_BACKEND_DAWN
-// or IMGUI_IMPL_WEBGPU_BACKEND_WGPU must be provided. See imgui_impl_wgpu.h for more details.
-#ifndef __EMSCRIPTEN__
-    // FIX(zig-gamedev): zgpu is currently stuck on an old version of Dawn, we can workaround this by not defining these macros
-    // #if defined(IMGUI_IMPL_WEBGPU_BACKEND_DAWN) == defined(IMGUI_IMPL_WEBGPU_BACKEND_WGPU)
-    // #error exactly one of IMGUI_IMPL_WEBGPU_BACKEND_DAWN or IMGUI_IMPL_WEBGPU_BACKEND_WGPU must be defined!
-    // #endif
-#else
-    #if defined(IMGUI_IMPL_WEBGPU_BACKEND_DAWN) || defined(IMGUI_IMPL_WEBGPU_BACKEND_WGPU)
-    #error neither IMGUI_IMPL_WEBGPU_BACKEND_DAWN nor IMGUI_IMPL_WEBGPU_BACKEND_WGPU may be defined if targeting emscripten!
-    #endif
-#endif
-
 #ifndef IMGUI_DISABLE
 #include "imgui_impl_wgpu.h"
 #include <limits.h>
