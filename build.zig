@@ -269,7 +269,7 @@ pub fn build(b: *std.Build) void {
     switch (options.backend) {
         .glfw_wgpu, .glfw_dawn => {
             const wgpu_native = b.dependency("wgpu_native_zig", .{});
-            imgui_mod.addIncludePath(wgpu_native.path("zig-pkg/N-V-__8AALK1sQPqMGESXUOHBpzwDj1GMf_nYBdfbjewJ9kH/include"));
+            imgui_mod.addIncludePath(wgpu_native.path("lib/wgpu-native/ffi"));
 
             if (b.lazyDependency("zglfw", .{})) |zglfw| {
                 imgui_mod.addIncludePath(zglfw.path("libs/glfw/include"));
