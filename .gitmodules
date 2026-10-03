@@ -1,3 +1,6 @@
 [submodule "libs/imgui"]
 	path = libs/imgui
 	url = https://github.com/ocornut/imgui
+[submodule "libs/wgpu_native_zig"]
+	path = libs/wgpu_native_zig
+	url = git@github.com:substepgames/wgpu_native_zig.git
